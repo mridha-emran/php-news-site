@@ -27,11 +27,44 @@ ul{
     font-size: 15px;
     font-weight:600;
     transition:all 0.5s ease 0s;
-    text-decoration: none;
+
 }
 
 #menu-bar .menu > li > a:hover,
 #menu-bar .menu > li > a.active{
     color:#fff;
     background:#1e90ff;
+}
+
+#admin-menubar{
+    background-color: #fff;
+}
+
+#admin-menubar .admin-menu li{
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+#admin-menubar .admin-menu li a{
+    color: #1E90FF;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 7px 15px;
+    display: block;
+    transition: all 0.3s;
+}
+
+#admin-menubar .admin-menu li a:hover{
+    color: #fff;
+    background-color: #1E90FF;
+}
+
+#admin-content{
+    padding: 20px 0;
+    min-height: 750px;
+}
+
+#admin-content .admin-heading{
+    font-size: 35px;
+    margin: 0 0 15px;
 }
