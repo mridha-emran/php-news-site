@@ -25,7 +25,7 @@
            
             //   to direct the page      
                 if($userResult){
-                    header("location: http://localhost/news-site/admin/users.php")
+                    header("location: http://localhost/news-site/admin/users.php");
                 }
         }
     }
