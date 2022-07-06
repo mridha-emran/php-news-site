@@ -7,6 +7,7 @@
         
         <title>ADMIN Panel</title>
         <!-- Bootstrap -->
+         <link rel="stylesheet" href="../css/font-awesome.css">
         <link rel="stylesheet" href="../css/bootstrap.min.css" />
         <link rel="stylesheet" href="../css/style.css">
     </head>

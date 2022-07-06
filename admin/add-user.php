@@ -21,8 +21,12 @@
             // new user adding
             $addUser="INSERT INTO user(first_name, last_name, username, password, role) 
                       VALUES  ('{$firstName}','{$lastName}','{$user}','{$password}','{$role}')";
-            $userResult= mysqli_query($conn,$addUser) or die("query faild");
-
+            $userResult= mysqli_query($conn,$addUser);
+           
+            //   to direct the page      
+                if($userResult){
+                    header("location: http://localhost/news-site/admin/users.php")
+                }
         }
     }
     
