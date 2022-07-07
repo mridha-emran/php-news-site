@@ -36,11 +36,24 @@ ul{
     background:#1e90ff;
 }
 
-form{
-    background: #fff;
-    padding: 25px;
-    box-shadow:0 1px 3px rgba(0, 0, 0, 0.13);
+#header-admin{
+    background-color: #1E90FF;
+    padding: 15px 0;
 }
+
+#header-admin .admin-logout{
+    margin: 10px 0;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+#header-admin .admin-logout:hover{
+    text-decoration: underline;
+}
+
 #admin-menubar{
     background-color: #fff;
 }
@@ -67,11 +80,6 @@ form{
 #admin-content{
     padding: 20px 0;
     min-height: 750px;
-}
-
-#admin-content .admin-heading{
-    font-size: 35px;
-    margin: 0 0 15px;
 }
 
 #admin-content .add-new{

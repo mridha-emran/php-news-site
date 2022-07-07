@@ -1,3 +1,14 @@
+<?php 
+
+    session_start();
+        // session info from index page
+
+    if(!isset($_SESSION["username"])){
+         //   to direct the page   
+         header("location:http://localhost/news-site/admin/index.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -12,7 +23,17 @@
         <link rel="stylesheet" href="../css/style.css">
     </head>
     <body>
-     
+      <!-- HEADER -->
+        <div id="header-admin">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-offset-9  col-md-1">
+                        <a href="logout.php" class="admin-logout" >logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /HEADER -->
         <div id="admin-menubar">
             <div class="container">
                 <div class="row">
@@ -32,3 +53,5 @@
                 </div>
             </div>
         </div>
+    </body>    
+</html>
