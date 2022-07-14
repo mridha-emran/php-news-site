@@ -5,8 +5,7 @@
             // to check file upload in input field
          if(isset($_FILES['fileToUpload'])){
             $errors = array();
-         }
-
+         
         //  super global variable use upload file
           $file_name = $_FILES['fileToUpload'] ['name']; 
           $file_size = $_FILES['fileToUpload'] ['size']; 
@@ -41,6 +40,7 @@
                  print_r( $errors); 
                  die() ;
             }
+        }
            
         session_start();
         // get input fieid values from add-post.php form

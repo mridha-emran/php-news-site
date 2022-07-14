@@ -14,11 +14,14 @@
                     include "config.php";
                     if($_SESSION['userRole'] =='1'){
                        // get post data from the database
-                     $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,category.category_name,user.username FROM post
+                     $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,
+                     category.category_name,user.username,post.category FROM post
                      LEFT JOIN category ON post.category = category.category_id
                      LEFT JOIN user ON post.author = user.user_id ORDER BY post.post_id DESC" ;
-                    }elseif ($_SESSION['userRole']=='0') {
-                     $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,category.category_name,user.username FROM post
+                    }
+                    elseif ($_SESSION['userRole']=='0') {
+                     $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,
+                     category.category_name,user.username,post.category FROM post
                      LEFT JOIN category ON post.category = category.category_id
                      LEFT JOIN user ON post.author = user.user_id 
                      WHERE post.author ={$_SESSION['userID']}
@@ -51,7 +54,7 @@
                               <td><?php echo $post['post_date']?></td>
                               <td><?php echo $post['username']?></td>
                               <td class='edit'><a href='update-post.php?id=<?php echo $post["post_id"]?>'><i class='fa fa-edit'></i></a></td>
-                              <td class='delete'><a href='delete-post.php?id=<?php echo $post["post_id"]?>'><i class='fa fa-trash-o'></i></a></td>
+                              <td class='delete'><a href='delete-post.php?id=<?php echo $post["post_id"]?>&catid=<?php echo $post["category"]?>'><i class='fa fa-trash-o'></i></a></td>
                           </tr>
                         <?php }?>  
                           
