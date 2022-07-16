@@ -1,4 +1,13 @@
+<?php 
 
+    session_start();
+        // session info from index page
+
+    if(isset($_SESSION["username"])){
+         //   to direct the page   
+         header("location:http://localhost/news-site/admin/post.php");
+    }
+?>
 <!doctype html>
 <html>
    <head>
@@ -54,7 +63,7 @@
                                     $_SESSION['userRole'] = $row["role"];
                                     
                                     //   to direct the page   
-                                    header("location: http://localhost/news-site/admin/users.php");
+                                    header("location: http://localhost/news-site/admin/post.php");
                                 }
                             }else{
                                 

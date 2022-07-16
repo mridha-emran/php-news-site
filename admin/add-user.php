@@ -1,4 +1,11 @@
 <?php include "header.php";
+
+// checking user role to access to the page
+    if($_SESSION['userRole']== 0){
+           //   to redirect the page 
+         header("location: http://localhost/news-site/admin/post.php");
+    }
+    
     if(isset($_POST["save"])){
 
      // mysql connaction

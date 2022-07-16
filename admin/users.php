@@ -1,4 +1,10 @@
-<?php include "header.php"; ?>
+<?php include "header.php";
+// checking user role to access to the page
+    if($_SESSION['userRole']== 0){
+           //   to redirect the page 
+         header("location: http://localhost/news-site/admin/post.php");
+    }
+?>
   <div id="admin-content">
       <div class="container">
           <div class="row">
