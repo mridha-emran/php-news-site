@@ -143,3 +143,121 @@ ul{
 .delete{
     text-align:center;
 }
+
+/* Main Content Styling */
+#main-content{
+    padding: 30px 0;
+    min-height: 750px;
+}
+
+#main-content .post-container{
+    background-color: #fff;
+    padding: 25px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+}
+
+#main-content .post-content{
+    border-bottom: 1px solid #d1d1d1;
+    padding: 0 0 30px;
+    margin-bottom:30px;
+}
+
+#main-content .post-content img{
+  width: 10%;
+}
+
+#main-content .post-content .post-img{
+  border: 3px solid #e7e7e7;
+  display: block;
+  height: 145px;
+  overflow: hidden;
+  transition: border .3s;
+}
+#main-content .post-content .post-img:hover{
+  border: 3px solid #1e90ff;
+}
+
+#main-content .post-content h3{
+    font-size: 21px;
+    line-height: 28px;
+    font-weight: 600;
+    margin: 0 0 7px;
+
+}
+#main-content .post-content h3 a{
+    color: #1e90ff;
+    transition:all 0.3s;
+}
+#main-content .post-content h3 a:hover{
+    color:#333;
+}
+
+#main-content .post-content .post-information span{
+    color: #606060;
+    font-size: 12px;
+    text-transform: capitalize;
+    margin: 0 5px 5px 0;
+    display: inline-block;
+}
+
+#main-content .post-content .post-information i{
+    color: #1e90ff;
+    margin-right: 1px;
+}
+
+#main-content .post-content .post-information a{
+    color: #606060;
+    text-decoration: none;
+}
+
+#main-content .post-content .post-information a:hover{
+    color: #333;
+    text-decoration: none;
+}
+
+#main-content .post-content p,
+#main-content .single-post p{
+    color: #666;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    margin:0 0 10px;
+}
+
+#main-content .post-content a.read-more{
+    color: #fff;
+    background-color: #1E90FF;
+    font-size: 12px;
+    text-transform: capitalize;
+    padding: 3px 8px;
+    border-radius: 2px;
+    transition: all 0.3s;
+}
+
+#main-content .post-content a.read-more:hover{
+    color: #fff;
+    background-color: #333;
+}
+
+#main-content .single-post{
+    border: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+#main-content .single-post h3{
+    color: #1e90ff;
+}
+
+#main-content .single-post .post-information{
+    margin: 0 0 10px;
+}
+#main-content .single-post p{
+    text-align: justify;
+}
+
+#main-content .single-post img.single-feature-image{
+    width: 70%;
+    margin: 0 auto 20px;
+    display: block;
+    border: 3px solid #e7e7e7;
+}
