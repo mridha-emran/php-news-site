@@ -11,7 +11,7 @@
                             // getting id from URL
                             $postId=$_GET["id"];
                         // get post data from the database
-                        $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,
+                        $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,post.author,
                             category.category_name,user.username,post.category,post.post_img FROM post
                             LEFT JOIN category ON post.category = category.category_id
                             LEFT JOIN user ON post.author = user.user_id WHERE post.post_id ={$postId}";
@@ -32,7 +32,7 @@
                                 </span>
                                 <span>
                                     <i class="fa fa-user" aria-hidden="true"></i>
-                                    <a href='author.php'><?php echo $post['username']?></a>
+                                    <a href='author.php?authid=<?php echo $post['author'];?>'><?php echo $post['username']?></a>
                                 </span>
                                 <span>
                                     <i class="fa fa-calendar" aria-hidden="true"></i>
