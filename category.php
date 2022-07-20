@@ -1,14 +1,21 @@
 <?php include 'header.php'; ?>
     <div id="main-content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <!-- post-container -->
-                    <div class="post-container">                                             
-                    <?php 
+      <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <!-- post-container -->
+                <div class="post-container">
+                    <?php
+                    $getcategory ="SELECT * FROM category WHERE category_id={$catId}";
+                       $catResult= mysqli_query($conn,$getcategory) or die("query faild");
+                       $row = mysqli_fetch_assoc($catResult);
+
+                    ?>
+                  <h2 class="page-heading"><?php echo $row["category_name"];?></h2>
+                   <?php 
                         // mysql connaction
                         include "config.php";
-                          // getting id from URL
+
                              if(isset($_GET["catid"])){
                              $catId=$_GET["catid"];
                         }
@@ -16,7 +23,9 @@
                         $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,
                             category.category_name,user.username,post.category,post.post_img FROM post
                             LEFT JOIN category ON post.category = category.category_id
-                            LEFT JOIN user ON post.author = user.user_id ORDER BY post.post_id DESC" ;
+                            LEFT JOIN user ON post.author = user.user_id
+                            WHERE  post.category = {$catId}
+                            ORDER BY post.post_id DESC" ;
                             
                         $result= mysqli_query($conn,$getPost) or die("query faild");
                             
@@ -30,11 +39,11 @@
                                 </div>
                                 <div class="col-md-8">
                                     <div class="inner-content clearfix">
-                                        <h3><a href='single.php?id=<?php echo $post["post_id"]?>'> <?php echo $post['title']?></a></h3>
+                                        <h3><a href='single.php?id=<?php echo $post["post_id"]?>'><?php echo $post['title']?></a></h3>
                                         <div class="post-information">
                                             <span>
                                                 <i class="fa fa-tags" aria-hidden="true"></i>
-                                                <a href='category.php?catid=<?php echo $post['category'];?>'> <?php echo $post['category_name']?></a>
+                                                <a href='category.php?catid=<?php echo $post['category'];?>'><?php echo $post['category_name']?></a>
                                             </span>
                                             <span>
                                                 <i class="fa fa-user" aria-hidden="true"></i>
@@ -57,12 +66,11 @@
                         }else{
                             echo"no record found";
                         }
-                    ?>                    
-                    </div><!-- /post-container -->
-                </div>
+                    ?>       
+                                  
+                </div><!-- /post-container -->
             </div>
+          
         </div>
+      </div>
     </div>
-
-
-
