@@ -8,23 +8,23 @@
                     <?php
                      // mysql connaction
                         include "config.php";
-
-                             if(isset($_GET["catid"])){
-                             $catId=$_GET["catid"];
-                        }
-                    $getcategory ="SELECT * FROM category WHERE category_id={$catId}";
-                       $catResult= mysqli_query($conn,$getcategory) or die("query faild");
-                       $row = mysqli_fetch_assoc($catResult);
+                             //to check search from url 
+                             if(isset($_GET["search"])){
+                            // getting search from URL
+                              $search = mysqli_real_escape_string ($conn, $_GET["search"]);
+                        }                      
 
                     ?>
-                  <h2 class="page-heading"><?php echo $row["category_name"];?></h2>
-                   <?php
-                        // get post data from the database
+                        <h2 class="page-heading"> Search :<?php echo $search;?></h2>
+                   <?php  
+                        // search title, description , category from the database
                         $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,post.author,
                             category.category_name,user.username,post.category,post.post_img FROM post
                             LEFT JOIN category ON post.category = category.category_id
                             LEFT JOIN user ON post.author = user.user_id
-                            WHERE  post.category = {$catId}
+                            WHERE  post.title LIKE '%{$search}%' 
+                            OR post.description LIKE '%{$search}%' 
+                            OR category.category_name LIKE '%{$search}%' 
                             ORDER BY post.post_id DESC" ;
                             
                         $result= mysqli_query($conn,$getPost) or die("query faild");
@@ -66,12 +66,13 @@
                         }else{
                             echo"no record found";
                         }
-                    ?>       
-                                  
+                    ?>      
+
                 </div><!-- /post-container -->
             </div>
-               <!--- sidebar-->
-           <?php include 'sidebar.php'; ?>
+            <!--- sidebar-->
+            <?php include 'sidebar.php'; ?>
         </div>
       </div>
     </div>
+

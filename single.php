@@ -10,6 +10,7 @@
                         include "config.php";
                             // getting id from URL
                             $postId=$_GET["id"];
+                            
                         // get post data from the database
                         $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,post.author,
                             category.category_name,user.username,post.category,post.post_img FROM post
@@ -52,6 +53,8 @@
                     </div>
                     <!-- /post-container -->
                 </div>
+                   <!--- sidebar-->
+                 <?php include 'sidebar.php'; ?>
             </div>
         </div>
     </div>

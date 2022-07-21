@@ -60,6 +60,8 @@
                     ?>                    
                     </div><!-- /post-container -->
                 </div>
+                   <!--- sidebar-->
+                <?php include 'sidebar.php'; ?>
             </div>
         </div>
     </div>

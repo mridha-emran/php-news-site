@@ -276,3 +276,135 @@ ul{
     display: block;
     border: 3px solid #e7e7e7;
 }
+
+
+
+#sidebar h4{
+    color: #1A1A1A;
+    font-size: 17px;
+    line-height: 27px;
+    font-weight:600;
+    text-transform: uppercase;
+    padding: 0 0 0 5px;
+    margin: 0 0 21px;
+    border-left: 3px solid #1e90ff;
+}
+
+#sidebar .search-box-container{
+    background-color: #fff;
+    padding: 20px;
+    margin: 0 0 30px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+}
+
+#sidebar .search-post{
+    padding: 0;
+}
+#sidebar .search-post input{
+    color: #606060;
+}
+#sidebar .search-post input:focus{
+    box-shadow: none;
+    border-color: #999;
+}
+
+#sidebar .search-post .btn{
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 6px 8px;
+    background-color: #1E90FF;
+    border-color: #1E90FF;
+    outline: none;
+}
+
+#sidebar .search-post .btn:hover,
+#sidebar .search-post .btn:focus{
+    text-shadow: 0 0 3px #333;
+}
+
+#sidebar .search-post i.fa{
+    font-size: 16px;
+    color: #999999;
+    line-height: 40px;
+    float:right;
+}
+
+#sidebar .recent-post-container{
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.13);
+}
+
+#sidebar .recent-post{
+    border-bottom: 1px solid #e7e7e7;
+    padding: 0 0 15px;
+    margin: 0 0 15px;
+}
+
+#sidebar .recent-post:last-child{
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+#sidebar .recent-post .post-img{
+  display: inline-block;
+  width: 33%;
+  border: 3px solid rgba(0,0,0,0.3);
+  vertical-align: top;
+  transition: border .3s;
+}
+
+#sidebar .recent-post .post-img:hover{
+  border: 3px solid #1e90ff;
+}
+
+#sidebar .recent-post .post-img img{
+    width: 100%;
+}
+
+#sidebar .recent-post .post-content{
+    width: 65%;
+    display: inline-block;
+    border: none;
+    padding: 0 0 0 7px;
+    margin: 0;
+}
+
+#sidebar .recent-post h5{
+    font-size: 14px;
+    line-height: 20px;
+    margin: 0 0 5px;
+}
+#sidebar .recent-post h5 a{
+    color: #1E90FF;
+}
+
+#sidebar .recent-post span{
+    color: #666;
+    font-size: 11px;
+    display: inline-block;
+    margin: 0 5px 10px 0;
+}
+
+#sidebar .recent-post span a{
+    color: #666;
+}
+#sidebar .recent-post span i{
+    color: #1E90FF;
+}
+
+#sidebar .recent-post a.read-more{
+    color: #666;
+    background-color: rgba(0,0,0,0.09);
+    width: 65px;
+    font-size: 11px;
+    text-align: center;
+    padding: 0;
+    display: block;
+    transition: all 0.3s;
+}
+
+#sidebar .recent-post a.read-more:hover{
+    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+}
