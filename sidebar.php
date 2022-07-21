@@ -15,9 +15,45 @@
     <!-- recent posts box -->
     <div class="recent-post-container">
         <h4>Recent Posts</h4>
-
+            <?php 
+                // mysql connaction
+                include "config.php";
+                $limit = 3;
+                // get recent post data from the database
+                $getPost ="SELECT post.post_id, post.title, post.post_date, 
+                        category.category_name, post.category,post.post_img FROM post
+                        LEFT JOIN category ON post.category = category.category_id
+                        ORDER BY post.post_id DESC LIMIT {$limit}" ;
+                                
+                $result= mysqli_query($conn,$getPost) or die("query faild : Recent Post");
+                                
+                        if(mysqli_num_rows($result)>0){
+                        while($post = mysqli_fetch_assoc($result)){
+            ?>        
+        <div class="recent-post">
+           <a class="post-img" href="single.php?id=<?php echo $post["post_id"]?>">
+           <img src="admin/upload/<?php echo $post['post_img']?>" alt=""/></a>
+            </a>
+            <div class="post-content">
+                <h5><a href='single.php?id=<?php echo $post["post_id"]?>'>
+                 <?php echo $post['title']?></a></h5>
+                <span>
+                    <i class="fa fa-tags" aria-hidden="true"></i>
+                    <a href='category.php?catid=<?php echo $post['category'];?>'>
+                    <?php echo $post['category_name']?></a>
+                </span>
+                <span>
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <?php echo $post['post_date']?>
+                </span>
+                <a class="read-more"  href='single.php?id=<?php echo $post["post_id"]?>'>read more</a>
+            </div>
+        </div>  
         
-        </div>
+        <?php 
+          }
+            }
+        ?>
     </div>
     <!-- /recent posts box -->
 </div>
