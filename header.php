@@ -1,3 +1,63 @@
+<?php
+    include "config.php";
+    // to get the name and path of the current file
+    $page = basename($_SERVER['PHP_SELF']);
+
+    //to check different page titles
+    switch ($page) {
+
+        // single page title
+        case 'single.php':
+                if(isset($_GET["id"])){
+                   $sql_title ="SELECT * FROM post WHERE post_id= {$_GET["id"]}";
+                    $sql_result= mysqli_query($conn,$sql_title) or die("query faild:title");
+                    $title_row = mysqli_fetch_assoc($sql_result);
+                    $page_title = $title_row['title'];
+                }else{
+                    $page_title = "no title found";
+                }
+            break;
+
+        // search result title
+        case 'search.php':
+                 if(isset($_GET["search"])){
+                
+                    $page_title = $_GET["search"];
+                }else{
+                    $page_title = "no search result found";
+                }
+            break;
+
+        // category title
+        case 'category.php':
+                if(isset($_GET["catid"])){
+                   $sql_title ="SELECT * FROM category WHERE category_id= {$_GET["catid"]}";
+                    $sql_result= mysqli_query($conn,$sql_title) or die("query faild:title");
+                    $title_row = mysqli_fetch_assoc($sql_result);
+                    $page_title = $title_row['category_name'];
+                }else{
+                    $page_title = "no title found";
+                }
+            break;
+
+        // author title
+        case 'author.php':
+                 if(isset($_GET["authid"])){
+                   $sql_title ="SELECT * FROM user WHERE user_id= {$_GET["authid"]}";
+                    $sql_result= mysqli_query($conn,$sql_title) or die("query faild:title");
+                    $title_row = mysqli_fetch_assoc($sql_result);
+                    $page_title = $title_row['username'];
+                }else{
+                    $page_title = "no title found";
+                }
+            break;
+        default:
+            $page_title ="News-site";
+            break;
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +65,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>News-site</title>
+    <title> <?php echo $page_title?></title>
     <!-- Bootstrap -->
     <link rel="stylesheet" href="css/bootstrap.min.css" />
     <!-- Font Awesome Icon -->
@@ -61,7 +121,6 @@
                                         $active="";
                                     }
                         }
-
                                 echo"<li><a class='{$active}' href='category.php?catid={$row['category_id']}'>{$row['category_name']}</a></li>";
                             }
                         ?>
@@ -75,5 +134,5 @@
         </div>
     </div>
 </div>
-            </body>
-            </html>
+</body>
+</html>
