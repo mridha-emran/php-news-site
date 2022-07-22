@@ -19,13 +19,22 @@
                     ?>
                   <h2 class="page-heading"><?php echo $row["category_name"];?></h2>
                    <?php
-                        // get post data from the database
+                        //Calculate Offset Code 
+                        $limit =3 ;
+                        if(isset($_GET['page'])){
+                            $page = $_GET['page'];
+                        }else{
+                            $page =1;
+                        }
+                        $offset = ($page - 1)* $limit;
+                        
+                        // select query of post table with left join and  with offset and limit
                         $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,post.author,
                             category.category_name,user.username,post.category,post.post_img FROM post
                             LEFT JOIN category ON post.category = category.category_id
                             LEFT JOIN user ON post.author = user.user_id
                             WHERE  post.category = {$catId}
-                            ORDER BY post.post_id DESC" ;
+                            ORDER BY post.post_id DESC LIMIT {$offset},{$limit}" ;
                             
                         $result= mysqli_query($conn,$getPost) or die("query faild");
                             
@@ -55,7 +64,7 @@
                                             </span>
                                         </div>
                                         <p class="description">
-                                            <?php echo $post['description']?>
+                                            <?php echo substr( $post['description'],0,120) ."..."?>
                                         </p>
                                         <a class='read-more pull-right' href='single.php?id=<?php echo $post["post_id"]?>'>read more</a>
                                     </div>
@@ -65,6 +74,32 @@
                     <?php }
                         }else{
                             echo"no record found";
+                        }
+
+                        //pagination
+
+                             if(mysqli_num_rows($catResult)>0){
+                            $total_records = $row['post'];
+                            $total_page = ceil($total_records / $limit);
+
+                            echo "<ul class = 'pagination'>";
+                                if($page > 1){
+                                    echo '<li> <a href="category.php?catid='. $catId .'&page='.($page - 1).'">prev</a> </li>';
+                                }
+                                for($i = 1; $i<=$total_page; $i++){
+                                    
+                                    if( $i == $page){
+                                            $active ="active";
+                                        }else{
+                                            $active="";
+                                        }
+                                echo '<li class="'.$active.'"><a href="category.php?catid='. $catId .'&page='.$i.'">'.$i.'</a></li>';  
+                                }
+
+                                if( $total_page > $page ){
+                                    echo '<li> <a href="category.php?catid='. $catId .'&page='.($page + 1).'">next</a> </li>';
+                                }
+                            echo "</ul>" ;
                         }
                     ?>       
                                   

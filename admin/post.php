@@ -12,20 +12,31 @@
               <?php 
                   // mysql connaction
                     include "config.php";
+
+                    //Calculate Offset Code 
+                     $limit =3 ;
+                        if(isset($_GET['page'])){
+                            $page = $_GET['page'];
+                        }else{
+                            $page =1;
+                        }
+                        $offset = ($page - 1)* $limit;
+
                     if($_SESSION['userRole'] =='1'){
-                       // get post data from the database
+                       // select query of post table for admin user 
                      $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,
                      category.category_name,user.username,post.category FROM post
                      LEFT JOIN category ON post.category = category.category_id
-                     LEFT JOIN user ON post.author = user.user_id ORDER BY post.post_id DESC" ;
+                     LEFT JOIN user ON post.author = user.user_id ORDER BY post.post_id DESC LIMIT {$offset},{$limit}" ;
                     }
+                    // select query of post table for normal user 
                     elseif ($_SESSION['userRole']=='0') {
                      $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,
                      category.category_name,user.username,post.category FROM post
                      LEFT JOIN category ON post.category = category.category_id
                      LEFT JOIN user ON post.author = user.user_id 
                      WHERE post.author ={$_SESSION['userID']}
-                     ORDER BY post.post_id DESC" ;
+                     ORDER BY post.post_id DESC LIMIT {$offset},{$limit}" ;
                      
                     } 
                      $result= mysqli_query($conn,$getPost) or die("query faild");
@@ -60,7 +71,36 @@
                           
                       </tbody>
                   </table>
-                <?php }?>
+                  <?php }
+
+                   //pagination
+                   $pagin_sql="SELECT * FROM post";
+                   $pagin_result= mysqli_query($conn,$pagin_sql) or die("query faild");
+                        
+                        if(mysqli_num_rows($pagin_result)>0){
+                            $total_records = mysqli_num_rows($pagin_result);
+                            $total_page = ceil($total_records / $limit);
+
+                            echo "<ul class = 'pagination admin-pagination'>";
+                                if($page > 1){
+                                    echo '<li> <a href="post.php?page='.($page - 1).'">prev</a> </li>';
+                                }
+                                for($i = 1; $i<=$total_page; $i++){
+                                    
+                                    if( $i == $page){
+                                            $active ="active";
+                                        }else{
+                                            $active="";
+                                        }
+                                echo '<li class="'.$active.'"><a href="post.php?page='.$i.'">'.$i.'</a></li>';  
+                                }
+
+                                if( $total_page > $page ){
+                                    echo '<li> <a href="post.php?page='.($page + 1).'">next</a> </li>';
+                                }
+                            echo "</ul>" ;
+                        }
+                  ?>
               </div>
           </div>
       </div>

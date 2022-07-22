@@ -17,6 +17,15 @@
                     ?>
                         <h2 class="page-heading"> Search :<?php echo $search;?></h2>
                    <?php  
+                         //Calculate Offset Code 
+                        $limit =3 ;
+                        if(isset($_GET['page'])){
+                            $page = $_GET['page'];
+                        }else{
+                            $page =1;
+                        }
+                        $offset = ($page - 1)* $limit;
+
                         // search title, description , category from the database
                         $getPost ="SELECT post.post_id,post.title,post.description,post.post_date,post.author,
                             category.category_name,user.username,post.category,post.post_img FROM post
@@ -25,7 +34,7 @@
                             WHERE  post.title LIKE '%{$search}%' 
                             OR post.description LIKE '%{$search}%' 
                             OR category.category_name LIKE '%{$search}%' 
-                            ORDER BY post.post_id DESC" ;
+                            ORDER BY post.post_id DESC LIMIT {$offset},{$limit}" ;
                             
                         $result= mysqli_query($conn,$getPost) or die("query faild");
                             
@@ -55,7 +64,7 @@
                                             </span>
                                         </div>
                                         <p class="description">
-                                            <?php echo $post['description']?>
+                                            <?php echo substr($post['description'], 0 ,120) ."...";?>
                                         </p>
                                         <a class='read-more pull-right' href='single.php?id=<?php echo $post["post_id"]?>'>read more</a>
                                     </div>
@@ -66,7 +75,37 @@
                         }else{
                             echo"no record found";
                         }
-                    ?>      
+
+                         //pagination
+                        $pagin_sql="SELECT * FROM post WHERE post.title LIKE '%{$search}%'";
+                        
+                        $pagin_result= mysqli_query($conn,$pagin_sql) or die("query faild");
+                        
+                        if(mysqli_num_rows($pagin_result)>0){
+                            $total_records = mysqli_num_rows($pagin_result);
+                            $total_page = ceil($total_records / $limit);
+
+                            echo "<ul class = 'pagination'>";
+                                if($page > 1){
+                                    echo '<li> <a href="search.php?page='.($page - 1).'">prev</a> </li>';
+                                }
+                                for($i = 1; $i<=$total_page; $i++){
+                                    
+                                    if( $i == $page){
+                                            $active ="active";
+                                        }else{
+                                            $active="";
+                                        }
+                                echo '<li class="'.$active.'"><a href="search.php?page='.$i.'">'.$i.'</a></li>';  
+                                }
+
+                                if( $total_page > $page ){
+                                    echo '<li> <a href="search.php?page='.($page + 1).'">next</a> </li>';
+                                }
+                            echo "</ul>" ;
+                        }
+                  ?>
+                          
 
                 </div><!-- /post-container -->
             </div>
