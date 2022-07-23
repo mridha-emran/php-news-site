@@ -24,16 +24,21 @@
             {
                 $errors[]="This extension file not allowed , Please choose a JPG or PNG fill";
             }; 
+
         // to check file size
            if ( $file_size > 2097152 ) 
             {
                 $errors[] = " File size must be 2mb or lower . " ;
             }; 
 
+        //  time add with image name
+             $new_name = time(). "-".basename($file_name);
+             $target = "upload/".$new_name;
+
         // without any error uplode the file
             if ( empty($errors) == true )
             {
-                move_uploaded_file($file_tmp,"upload/".$file_name);
+                move_uploaded_file($file_tmp,$target);
             }
             else
             {
@@ -47,14 +52,16 @@
         $title = mysqli_real_escape_string ($conn , $_POST['post_title']) ; 
         $description = mysqli_real_escape_string ($conn , $_POST['postdesc'] ) ;  
         $category = mysqli_real_escape_string ($conn , $_POST['category'] ) ;
+        
         // to save sarver date into data
         $date = date( " d ,M , Y " ) ; 
 
         // get session values from index.php
         $author =  $_SESSION['userID'];
 
+        //insert query to add post in post table
         $addPost = "INSERT INTO post (title, description, category, post_date, author, post_img) 
-                    VALUES ('{$title}','{$description}',{$category},'{$date}',{$author},'{$file_name}');";
+                    VALUES ('{$title}','{$description}',{$category},'{$date}',{$author},'{$new_name}');";
         //concat query to update category
         $addPost .="UPDATE category set post =post+1 WHERE category_id ={$category}";
         

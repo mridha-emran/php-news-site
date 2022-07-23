@@ -1,4 +1,17 @@
-<?php include "header.php"; ?>
+<?php include "header.php";
+    if($_SESSION["userRole"] == 0){
+    include "config.php";
+     $postId = $_GET['id'];
+    $sql = "SELECT author FROM post WHERE post_id = {$postId}";
+    $result = mysqli_query($conn, $sql) or die("Query Failed.");
+
+    $row = mysqli_fetch_assoc($result);
+
+    if($row['author'] != $_SESSION["userID"]){
+        header("location: http://localhost/news-site/admin/post.php");
+    }
+    }
+?>
 <div id="admin-content">
   <div class="container">
   <div class="row">
@@ -45,25 +58,26 @@
                 <label for="exampleInputCategory">Category</label>
                 <select class="form-control" name="category">
                   <option disabled> Select Category</option>
-                                     <?php 
-                                        // mysql connaction
-                                            include "config.php";
+                    <?php 
+                       // mysql connaction
+                       include "config.php";
 
-                                            // get category from the database
-                                            $getCategory ="SELECT * FROM category";
-                                            $categoryResult= mysqli_query($conn,$getCategory) or die("query faild");
-                                                if(mysqli_num_rows($categoryResult)>0){
-                                                    while($rows = mysqli_fetch_assoc($categoryResult)){
-                                                    if($post['category']==$rows['category_id']){
-                                                        $selected = "selected";
-                                                    }else{
-                                                        $selected="";
-                                                    }
-                                                        echo"<option{$selected} value='{$rows['category_id']}'>{$rows['category_name']}</option>";
-                                                    };
-                                                };
-                                        ?>
+                       //select query of category table
+                        $getCategory ="SELECT * FROM category";
+                        $categoryResult= mysqli_query($conn,$getCategory) or die("query faild");
+                            if(mysqli_num_rows($categoryResult)>0){
+                                while($rows = mysqli_fetch_assoc($categoryResult)){
+                                    if($post['category'] == $rows['category_id']){
+                                          $selected = "selected";
+                                    }else{
+                                          $selected="";
+                                        }
+                                echo"<option{$selected} value='{$rows['category_id']}'>{$rows['category_name']}</option>";
+                                };
+                            };
+                    ?>
                 </select>
+                  <input type="hidden" name="old_category" value="<?php echo $post['category']; ?>">
             </div>
             <div class="form-group">
                 <label for="">Post image</label>
@@ -75,7 +89,7 @@
             <input type="submit" name="submit" class="btn btn-primary" value="Update" />
         </form>
          <?php
-                  }
+                }
                 
                     }?>
         <!-- Form End -->

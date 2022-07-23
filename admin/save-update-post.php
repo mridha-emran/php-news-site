@@ -2,7 +2,7 @@
      include "config.php";
      // to check image-file upload in input field
      if ( empty($_FILES['new-image']['name'])){
-          $file_name =$_POST['old-image'];
+          $new_name = $_POST['old-image'];
         }
         else
         {
@@ -31,10 +31,15 @@
                 $errors[] = " File size must be 2mb or lower . " ;
             }; 
 
+         //  time add with image name
+             $new_name = time(). "-".basename($file_name);
+             $target = "upload/".$new_name;
+            $image_name = $new_name;
+
         // without any error uplode the file
             if ( empty($errors) == true )
             {
-                move_uploaded_file($file_tmp,"upload/".$file_name);
+                move_uploaded_file($file_tmp,$target);
             }
             else
             {
@@ -44,9 +49,14 @@
         }  
 
         $postUpdate ="UPDATE post SET title='{$_POST["post_title"]}',description ='{$_POST["postdesc"]}',
-        category={$_POST["category"]},post_img='{$file_name}'
-         WHERE post_id ={$_POST["post_id"]}";
-        $result= mysqli_query($conn,$postUpdate);      
+        category={$_POST["category"]},post_img='{$image_name}'
+         WHERE post_id ={$_POST["post_id"]};";
+
+          if($_POST['old_category'] != $_POST["category"] ){
+                $postUpdate .= "UPDATE category SET post= post - 1 WHERE category_id = {$_POST['old_category']};";
+                $postUpdate .= "UPDATE category SET post= post + 1 WHERE category_id = {$_POST["category"]};";
+            }
+        $result= mysqli_multi_query($conn,$postUpdate);      
         
           if($result){
               //   to direct the page    
