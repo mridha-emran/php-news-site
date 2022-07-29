@@ -55,11 +55,13 @@
                       </thead>
                       <tbody>
                         <?php
+
+                        $serial = $offset + 1;
                         //to read post data from the database through loop
                             while($post = mysqli_fetch_assoc($result)){
                         ?>
                           <tr>
-                            <td class='id'><?php echo $post['post_id']?></td>
+                            <td class='id'><?php echo $serial; ?></td>
                               <td><?php echo $post['title']?></td>
                               <td><?php echo $post['category_name']?></td>
                               <td><?php echo $post['post_date']?></td>
@@ -67,7 +69,9 @@
                               <td class='edit'><a href='update-post.php?id=<?php echo $post["post_id"]?>'><i class='fa fa-edit'></i></a></td>
                               <td class='delete'><a href='delete-post.php?id=<?php echo $post["post_id"]?>&catid=<?php echo $post["category"]?>'><i class='fa fa-trash-o'></i></a></td>
                           </tr>
-                        <?php }?>  
+                        <?php
+                         $serial++;
+                    }?>  
                           
                       </tbody>
                   </table>

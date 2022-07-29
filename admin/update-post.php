@@ -64,18 +64,20 @@
 
                        //select query of category table
                         $getCategory ="SELECT * FROM category";
+                        
                         $categoryResult= mysqli_query($conn,$getCategory) or die("query faild");
-                            if(mysqli_num_rows($categoryResult)>0){
+                            
+                        if(mysqli_num_rows($categoryResult) > 0){
                                 while($rows = mysqli_fetch_assoc($categoryResult)){
                                     if($post['category'] == $rows['category_id']){
                                           $selected = "selected";
                                     }else{
                                           $selected="";
                                         }
-                                echo"<option{$selected} value='{$rows['category_id']}'>{$rows['category_name']}</option>";
-                                };
-                            };
-                    ?>
+                                echo "<option {$selected} value ='{$rows['category_id']}'>{$rows['category_name']}</option>";
+                                }
+                            }
+                    ?>             
                 </select>
                   <input type="hidden" name="old_category" value="<?php echo $post['category']; ?>">
             </div>

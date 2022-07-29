@@ -47,11 +47,12 @@
                       </thead>
                       <tbody>
                         <?php
+                             $serial = $offset + 1;
                         //to read user data from the database through loop
                             while($user = mysqli_fetch_assoc($result)){
                         ?>
                           <tr>
-                              <td class='id'><?php echo $user['user_id']?></td>
+                              <td class='id'><?php echo $serial; ?></td>
                               <td><?php echo $user['first_name']." " .$user['last_name']?></td>
                               <td><?php echo $user['username']?></td>
                               <td><?php 
@@ -64,7 +65,9 @@
                               <td class='edit'><a href='update-user.php?id=<?php echo $user["user_id"]?>'><i class='fa fa-edit'></i></a></td>
                               <td class='delete'><a href='delete-user.php?id=<?php echo $user["user_id"]?>'><i class='fa fa-trash-o'></i></a></td>
                           </tr>
-                        <?php }?>  
+                        <?php 
+                         $serial++;
+                        }?>  
                       </tbody>
                   </table>
                   <?php }
@@ -73,7 +76,7 @@
                    $pagin_sql="SELECT * FROM user";
                    $pagin_result= mysqli_query($conn,$pagin_sql) or die("query faild");
                         
-                        if(mysqli_num_rows($user_result)>0){
+                        if(mysqli_num_rows($pagin_result)>0){
                             $total_records = mysqli_num_rows($pagin_result);
                             $total_page = ceil($total_records / $limit);
 
